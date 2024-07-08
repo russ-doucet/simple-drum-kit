@@ -11,7 +11,9 @@ keyToSound.set("l", "./sounds/crash.mp3");
 
 // Playing sound based on the where the user clicks
 for(var i = 0; i < numberOfDrumButtons; i++){
+    // Loop through the list of buttons under the '.drum' class and apply event listeners to them
     document.querySelectorAll(".drum")[i].addEventListener("click", function(event) {
+        // When the click event is triggered animate the button and play the button's respective drum sound
         makeSound(this.innerHTML);
         buttonAnimation(this.innerHTML);
     });
@@ -19,6 +21,7 @@ for(var i = 0; i < numberOfDrumButtons; i++){
 
 // Playing sound based on which key the user presses
 document.addEventListener("keypress", function(event){
+    // Create an event listener for the document that checks for key presses
     makeSound(event.key);
 })
 
@@ -58,15 +61,19 @@ function makeSound(key){
     // }
 
     // The course had me use a switch statment but I wanted to learn the syntax for maps
+    // Create a new Audio object and play the pressed key's corresponding value in the keyToSound Map
     new Audio(keyToSound.get(key)).play();
+    // Apply the animated styles to the button
     buttonAnimation(key);
     
 }
 
 function buttonAnimation(key){
+    // Add the button to the .pressed class to have the associated styles applied to it
     var buttonPressed = document.querySelector("." + key);
     buttonPressed.addClass("pressed");
 
+    // After a tenth of a second remove the button from the pressed class (in turn removing the associated styles)
     setTimeout(function() {
         buttonPressed.classList.remove("pressed");
     }, 100)
